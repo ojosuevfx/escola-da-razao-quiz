@@ -537,22 +537,30 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
         </h2>
 
         <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.7, margin: "0 0 18px" }}>
-          87% das pessoas que tentam estudar filosofia clássica sozinhas desistem nos primeiros
-          30 dias — não porque o assunto é difícil, mas porque{" "}
-          <strong>ninguém as ensinou a forma certa de ler.</strong>
+          A maioria das pessoas tenta estudar filosofia clássica sozinha e acaba desistindo cedo —
+          não porque o assunto seja impossível, mas porque{" "}
+          <strong>ninguém ensinou como esses textos realmente devem ser lidos.</strong>
         </p>
 
         <div className="blockquote-styled" style={{ marginBottom: 18 }}>
-          &ldquo;Você não está aqui para ler livros. Está aqui para aprender a pensar com eles.&rdquo;
+          &ldquo;El hombre inteligente busca la sabedoria; o ignorante pensa já tê-la encontrado.&rdquo;
           <div style={{ marginTop: 8, fontSize: 12, fontStyle: "normal", fontWeight: 700, color: C.navy }}>
-            — Tutor do Thomas Aquinas College
+            — São Tomás de Aquino
           </div>
         </div>
 
+        <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.7, margin: "0 0 14px" }}>
+          Durante séculos, estudantes aprenderam filosofia através de métodos de leitura,
+          contemplação e organização do pensamento que quase desapareceram no ensino moderno.
+        </p>
+
+        <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.7, margin: "0 0 14px" }}>
+          <strong>Hoje, muita gente lê muito… mas entende pouco.</strong>
+        </p>
+
         <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.7, margin: "0 0 24px" }}>
-          Monges medievais dominavam bibliotecas inteiras com apenas 1 hora por dia — não porque
-          eram gênios, mas porque tinham método. O mesmo método que um brasileiro aprendeu lá e
-          trouxe para o Brasil.
+          Foi ao entrar em contato com esse modelo de formação clássica fora do Brasil que um
+          brasileiro decidiu adaptar esses princípios para uma nova geração de estudantes.
         </p>
 
         <PrimaryButton onClick={onNext}>Continuar →</PrimaryButton>
