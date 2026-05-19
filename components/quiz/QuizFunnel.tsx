@@ -402,50 +402,12 @@ function ScreenS0({ onNext }: { onNext: () => void }) {
 
       {/* Content area */}
       <div style={{ padding: "20px 20px 0" }}>
-        {/* Product strip */}
-        <div
-          style={{
-            background: "#fdf9f4",
-            border: "1.5px solid #e8d5b0",
-            borderRadius: 12,
-            padding: "14px 16px",
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            marginBottom: 22,
-          }}
-        >
-          <div
-            style={{
-              width: 42,
-              height: 42,
-              background: "#8b1a1a",
-              borderRadius: 10,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 20,
-              flexShrink: 0,
-            }}
-          >
-            📖
-          </div>
-          <div>
-            <div style={{ fontSize: 12, color: "#999", marginBottom: 3 }}>
-              O produto apresentado ao final
-            </div>
-            <div style={{ fontSize: 15, fontWeight: 800, color: "#1a1a1a" }}>
-              Escola da Razão — R$ 47
-            </div>
-          </div>
-        </div>
-
         {/* Steps */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
           {[
             "4 perguntas rápidas sobre o seu perfil",
             "1 diagnóstico personalizado do seu obstáculo",
-            "1 recomendação de próximo passo com oferta",
+            "1 recomendação do seu próximo passo nos estudos",
           ].map((text, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div
@@ -472,7 +434,7 @@ function ScreenS0({ onNext }: { onNext: () => void }) {
 
         {/* CTA button */}
         <PrimaryButton onClick={onNext} pulse>
-          Quero ver meu diagnóstico →
+          Quero Saber mais! →
         </PrimaryButton>
 
         {/* Time note */}
