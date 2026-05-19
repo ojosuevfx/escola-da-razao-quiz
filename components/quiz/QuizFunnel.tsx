@@ -272,25 +272,67 @@ function MultiOption({
 // ─── Screen S0 — Cover ────────────────────────────────────────────────────────
 function ScreenS0({ onNext }: { onNext: () => void }) {
   return (
-    <div>
-      {/* Dark hero block */}
-      <div style={{ background: "#1a0a0a", padding: "32px 24px 28px" }}>
-        {/* Pill tag */}
-        <div style={{ marginBottom: 16 }}>
+    <div style={{ background: "#fff" }}>
+
+      {/* ── Hero escuro ── */}
+      <div
+        style={{
+          background: "linear-gradient(170deg, #0e0404 0%, #1f0808 60%, #2a0a0a 100%)",
+          padding: "40px 24px 48px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* Ornamento de fundo — círculo dourado difuso */}
+        <div
+          style={{
+            position: "absolute",
+            top: -60,
+            right: -60,
+            width: 220,
+            height: 220,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(245,212,138,0.08) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+
+        {/* Logo */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
+          <img
+            src="/logo.png"
+            alt="Escola da Razão"
+            style={{ height: 52, width: "auto", objectFit: "contain" }}
+          />
+        </div>
+
+        {/* Divisor dourado */}
+        <div
+          style={{
+            width: 40,
+            height: 2,
+            background: "linear-gradient(90deg, transparent, #f5d48a, transparent)",
+            margin: "0 auto 24px",
+          }}
+        />
+
+        {/* Tag pill */}
+        <div style={{ textAlign: "center", marginBottom: 18 }}>
           <span
             style={{
               display: "inline-block",
-              background: "#7a1c1c",
+              background: "rgba(245,212,138,0.12)",
               color: "#f5d48a",
-              fontSize: 11,
+              fontSize: 10,
               fontWeight: 800,
               textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              padding: "5px 12px",
+              letterSpacing: "0.14em",
+              padding: "5px 14px",
               borderRadius: 20,
+              border: "1px solid rgba(245,212,138,0.25)",
             }}
           >
-            Veja se a Escola da Razão é pra você
+            Diagnóstico gratuito
           </span>
         </div>
 
@@ -298,18 +340,19 @@ function ScreenS0({ onNext }: { onNext: () => void }) {
         <h1
           style={{
             color: "#fff",
-            fontSize: 24,
+            fontSize: 26,
             fontWeight: 900,
-            lineHeight: 1.2,
-            margin: "0 0 14px",
+            lineHeight: 1.18,
+            margin: "0 0 16px",
+            textAlign: "center",
+            letterSpacing: "-0.02em",
           }}
         >
           Descubra por que você ainda não consegue estudar{" "}
           <span
             style={{
               color: "#f5d48a",
-              borderBottom: "2px solid #f5d48a",
-              paddingBottom: 1,
+              fontStyle: "italic",
             }}
           >
             filosofia clássica
@@ -318,132 +361,131 @@ function ScreenS0({ onNext }: { onNext: () => void }) {
         </h1>
 
         {/* Subtitle */}
-        <p style={{ color: "#aaa", fontSize: 14, lineHeight: 1.7, margin: 0 }}>
+        <p
+          style={{
+            color: "rgba(255,255,255,0.55)",
+            fontSize: 14,
+            lineHeight: 1.7,
+            margin: 0,
+            textAlign: "center",
+          }}
+        >
           Responda 4 perguntas e receba um diagnóstico personalizado — com o próximo passo certo para o seu perfil.
         </p>
       </div>
 
-      {/* Image placeholder — ANTES/DEPOIS */}
-      {/* IMAGEM: img-antes-depois.jpg */}
+      {/* ── Onda de transição ── */}
       <div
         style={{
-          margin: "0",
-          height: 180,
-          display: "flex",
-          overflow: "hidden",
+          height: 32,
+          background: "linear-gradient(170deg, #0e0404 0%, #2a0a0a 100%)",
+          borderRadius: "0 0 50% 50% / 0 0 32px 32px",
+          marginBottom: 32,
         }}
-      >
-        {/* ANTES */}
-        <div
-          style={{
-            flex: 1,
-            background: "linear-gradient(135deg, #2a1010 0%, #4a1a1a 100%)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 8,
-            padding: 16,
-            borderRight: "1px solid #333",
-          }}
-        >
-          <span
-            style={{
-              fontSize: 11,
-              fontWeight: 800,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              color: "#c0392b",
-              background: "rgba(192,57,43,0.15)",
-              padding: "3px 8px",
-              borderRadius: 20,
-            }}
-          >
-            ANTES
-          </span>
-          <div style={{ fontSize: 28 }}>😵</div>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 12, textAlign: "center", margin: 0, lineHeight: 1.4 }}>
-            Trava no começo, esquece tudo, desiste
-          </p>
-        </div>
-        {/* DEPOIS */}
-        <div
-          style={{
-            flex: 1,
-            background: "linear-gradient(135deg, #0a2010 0%, #1a4a1a 100%)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 8,
-            padding: 16,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 11,
-              fontWeight: 800,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              color: "#27ae60",
-              background: "rgba(39,174,96,0.15)",
-              padding: "3px 8px",
-              borderRadius: 20,
-            }}
-          >
-            DEPOIS
-          </span>
-          <div style={{ fontSize: 28 }}>🧠</div>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 12, textAlign: "center", margin: 0, lineHeight: 1.4 }}>
-            Lê, retém e pensa com os clássicos
-          </p>
-        </div>
-      </div>
+      />
 
-      {/* Content area */}
-      <div style={{ padding: "20px 20px 0" }}>
+      {/* ── Conteúdo branco ── */}
+      <div style={{ padding: "0 24px" }}>
+
         {/* Steps */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 32 }}>
           {[
-            "4 perguntas rápidas sobre o seu perfil",
-            "1 diagnóstico personalizado do seu obstáculo",
-            "1 recomendação do seu próximo passo nos estudos",
-          ].map((text, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            { num: "01", text: "4 perguntas rápidas sobre o seu perfil" },
+            { num: "02", text: "1 diagnóstico personalizado do seu obstáculo" },
+            { num: "03", text: "1 recomendação do seu próximo passo nos estudos" },
+          ].map(({ num, text }, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                padding: "14px 0",
+                borderBottom: i < 2 ? "1px solid #f0ebe0" : "none",
+              }}
+            >
               <div
                 style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: "50%",
-                  background: "#fdf3f3",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 12,
-                  fontWeight: 800,
-                  color: "#8b1a1a",
+                  fontSize: 11,
+                  fontWeight: 900,
+                  color: "#c4a46a",
+                  letterSpacing: "0.06em",
                   flexShrink: 0,
+                  width: 24,
                 }}
               >
-                {i + 1}
+                {num}
               </div>
-              <span style={{ fontSize: 14, color: "#444", lineHeight: 1.4 }}>{text}</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "#2a1a1a", lineHeight: 1.45 }}>
+                {text}
+              </span>
             </div>
           ))}
         </div>
 
-        {/* CTA button */}
-        <PrimaryButton onClick={onNext} pulse>
-          Quero Saber mais! →
-        </PrimaryButton>
+        {/* CTA com brilho */}
+        <motion.button
+          onClick={onNext}
+          className="cta-pulse"
+          whileTap={{ scale: 0.97 }}
+          style={{
+            width: "100%",
+            padding: "17px 24px",
+            background: "linear-gradient(135deg, #9e1f1f 0%, #7a1414 100%)",
+            color: "#fff",
+            border: "none",
+            borderRadius: 14,
+            fontSize: 16,
+            fontWeight: 800,
+            cursor: "pointer",
+            fontFamily: "inherit",
+            letterSpacing: "-0.01em",
+            boxShadow:
+              "0 4px 20px rgba(139,26,26,0.45), 0 1px 0 rgba(255,255,255,0.08) inset",
+            position: "relative",
+            overflow: "hidden",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.boxShadow =
+              "0 6px 28px rgba(139,26,26,0.6), 0 1px 0 rgba(255,255,255,0.08) inset";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.boxShadow =
+              "0 4px 20px rgba(139,26,26,0.45), 0 1px 0 rgba(255,255,255,0.08) inset";
+          }}
+        >
+          {/* Brilho interno */}
+          <span
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "50%",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%)",
+              borderRadius: "14px 14px 0 0",
+              pointerEvents: "none",
+            }}
+          />
+          Quero ver meu diagnóstico →
+        </motion.button>
 
-        {/* Time note */}
-        <p style={{ textAlign: "center", fontSize: 12, color: "#999", marginTop: 12, marginBottom: 0 }}>
-          ⏱ Leva menos de 2 minutos · sem cadastro
+        {/* Nota de tempo */}
+        <p
+          style={{
+            textAlign: "center",
+            fontSize: 12,
+            color: "#bbb",
+            marginTop: 14,
+            marginBottom: 0,
+            letterSpacing: "0.01em",
+          }}
+        >
+          ⏱ Menos de 2 minutos · sem cadastro
         </p>
       </div>
 
-      <div style={{ height: 20 }} />
+      <div style={{ height: 28 }} />
       <Footer />
     </div>
   );
