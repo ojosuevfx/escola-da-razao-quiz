@@ -1,18 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #8b1a1a;
-  --primary-dark: #6e1414;
-  --primary-light: #fdf5f5;
-  --gold: #f5d48a;
+  --primary: #1c2d4f;
+  --primary-dark: #0a1628;
+  --primary-light: #eef2f9;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
   --bg: #ffffff;
-  --bg-warm: #fdf9f4;
-  --border: #e8e8e8;
-  --border-warm: #e8d5b0;
-  --text-primary: #1a1a1a;
-  --text-secondary: #555555;
-  --text-muted: #999999;
-  --dark-hero: #1a0a0a;
+  --bg-warm: #fdf8ef;
+  --border: #dde3ed;
+  --border-warm: #d4c48a;
+  --text-primary: #0a1628;
+  --text-secondary: #4a5568;
+  --text-muted: #94a3b8;
+  --dark-hero: #0a1628;
 }
 
 * {
@@ -24,7 +25,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #f2ede8;
+  background: #e8edf5;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -63,13 +64,13 @@ body {
 .progress-bar-track {
   width: 100%;
   height: 4px;
-  background: #eeeeee;
+  background: #dde3ed;
   overflow: hidden;
 }
 
 .progress-bar-fill {
   height: 100%;
-  background: #8b1a1a;
+  background: #1c2d4f;
   transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -81,8 +82,8 @@ body {
 .spinner {
   width: 64px;
   height: 64px;
-  border: 5px solid #f0e8e0;
-  border-top-color: #8b1a1a;
+  border: 5px solid #dde3ed;
+  border-top-color: #1c2d4f;
   border-radius: 50%;
   animation: spin 0.9s linear infinite;
 }
@@ -111,8 +112,8 @@ body {
   padding: 12px;
   text-align: center;
   font-size: 11px;
-  color: #cccccc;
-  border-top: 1px solid #f5f5f5;
+  color: #94a3b8;
+  border-top: 1px solid #eef2f9;
 }
 
 .option-card {
@@ -121,12 +122,12 @@ body {
 }
 
 .blockquote-styled {
-  border-left: 3px solid #8b1a1a;
-  background: #fdf9f4;
+  border-left: 3px solid #c9a84c;
+  background: #fdf8ef;
   padding: 12px 14px;
   border-radius: 0 8px 8px 0;
   font-style: italic;
-  color: #555;
+  color: #4a5568;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -134,8 +135,8 @@ body {
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: #fdf9f4;
-  border: 1.5px solid #edd8c0;
+  background: #fdf8ef;
+  border: 1.5px solid #d4c48a;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -143,7 +144,7 @@ body {
 .stat-item {
   padding: 14px 8px;
   text-align: center;
-  border-right: 1px solid #edd8c0;
+  border-right: 1px solid #d4c48a;
 }
 
 .stat-item:last-child {
@@ -164,7 +165,7 @@ body {
   align-items: flex-start;
   gap: 10px;
   font-size: 14px;
-  color: #444;
+  color: #4a5568;
   line-height: 1.5;
 }
 
@@ -172,7 +173,7 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #8b1a1a;
+  background: #1c2d4f;
   display: flex;
   align-items: center;
   justify-content: center;
