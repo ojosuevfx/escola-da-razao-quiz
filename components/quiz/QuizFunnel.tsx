@@ -246,7 +246,7 @@ function MultiOption({ text, selected, onClick }: { text: string; selected: bool
 }
 
 // ─── S0 — Cover ───────────────────────────────────────────────────────────────
-function ScreenS0({ onNext }: { onNext: () => void }) {
+function ScreenS0({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }) {
   return (
     <div style={{ background: "#fff" }}>
 
@@ -327,9 +327,9 @@ function ScreenS0({ onNext }: { onNext: () => void }) {
         {/* Steps */}
         <div style={{ display: "flex", flexDirection: "column", marginBottom: 32 }}>
           {[
-            { num: "01", text: "4 perguntas rápidas sobre o seu perfil" },
-            { num: "02", text: "1 diagnóstico personalizado do seu obstáculo" },
-            { num: "03", text: "1 recomendação do seu próximo passo nos estudos" },
+            { num: "01", text: "Algumas perguntas rápidas sobre o seu perfil" },
+            { num: "02", text: "Um diagnóstico personalizado do seu obstáculo" },
+            { num: "03", text: "Receba uma recomendação sobre seu próximo passo nos estudos" },
           ].map(({ num, text }, i) => (
             <div key={i} style={{
               display: "flex", alignItems: "center", gap: 16,
@@ -347,17 +347,41 @@ function ScreenS0({ onNext }: { onNext: () => void }) {
           ))}
         </div>
 
-        {/* CTA */}
+        {/* CTA principal */}
         <PrimaryButton onClick={onNext} pulse>
-          Quero ver meu diagnóstico →
+          Iniciar agora!
         </PrimaryButton>
 
         <p style={{
           textAlign: "center", fontSize: 12, color: C.textMuted,
-          marginTop: 14, marginBottom: 0, letterSpacing: "0.01em",
+          marginTop: 14, marginBottom: 16, letterSpacing: "0.01em",
         }}>
           ⏱ Menos de 2 minutos · sem cadastro
         </p>
+
+        {/* CTA secundário */}
+        <button
+          onClick={onSkip}
+          style={{
+            width: "100%", padding: "14px",
+            background: "transparent",
+            color: C.navy,
+            border: `1.5px solid ${C.border}`,
+            borderRadius: 14, fontSize: 15, fontWeight: 700,
+            cursor: "pointer", fontFamily: "inherit",
+            transition: "border-color 200ms, background 200ms",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = C.navy;
+            (e.currentTarget as HTMLButtonElement).style.background = C.navyLight;
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = C.border;
+            (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+          }}
+        >
+          Já sei o que quero →
+        </button>
       </div>
 
       <div style={{ height: 28 }} />
@@ -858,7 +882,14 @@ function ScreenS8({ answers }: { answers: Answers }) {
           animate={shaken ? { x: [0, -3, 3, -3, 3, -2, 2, 0] } : { x: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <PrimaryButton>Quero entrar na Escola da Razão →</PrimaryButton>
+          <a
+            href="https://pay.hub.la/KJLdsZa55bTmIuB9ABC1"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: "block", textDecoration: "none" }}
+          >
+            <PrimaryButton>Quero entrar na Escola da Razão →</PrimaryButton>
+          </a>
         </motion.div>
 
         <p style={{ textAlign: "center", fontSize: 12, color: C.textMuted, marginTop: 12, marginBottom: 0 }}>
@@ -899,7 +930,7 @@ export default function QuizFunnel() {
 
   const renderScreen = () => {
     switch (screen) {
-      case "S0": return <ScreenS0 onNext={goNext} />;
+      case "S0": return <ScreenS0 onNext={goNext} onSkip={() => goTo("S8", 1)} />;
       case "S1": return <ScreenS1 onNext={goNext} onBack={goBack} answers={answers} setAnswer={setAnswer} />;
       case "S2": return <ScreenS2 onNext={goNext} onBack={goBack} answers={answers} setAnswer={setAnswer} />;
       case "S3": return <ScreenS3 onNext={goNext} onBack={goBack} answers={answers} setAnswer={setAnswer as (q: number, v: string[]) => void} />;
