@@ -784,18 +784,6 @@ function ScreenS8({ answers }: { answers: Answers }) {
           <img src="/logo.png" alt="Escola da Razão" style={{ height: 72, width: "auto", objectFit: "contain" }} />
         </div>
 
-        <div style={{ marginBottom: 16 }}>
-          <span style={{
-            display: "inline-block",
-            background: "rgba(201,168,76,0.16)", color: C.goldLight,
-            fontSize: 10, fontWeight: 800, textTransform: "uppercase",
-            letterSpacing: "0.14em", padding: "5px 14px", borderRadius: 20,
-            border: "1px solid rgba(201,168,76,0.28)",
-          }}>
-            Seu perfil: {perfil.badge}
-          </span>
-        </div>
-
         <h1 style={{
           color: "#fff", fontSize: 22, fontWeight: 900,
           lineHeight: 1.22, margin: "0 0 14px", letterSpacing: "-0.02em",
