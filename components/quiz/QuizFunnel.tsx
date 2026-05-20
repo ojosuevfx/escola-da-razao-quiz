@@ -631,17 +631,16 @@ function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }
           Prazer, eu sou o Lucca de Tomás
         </h2>
         <p style={{ fontSize: 13, fontWeight: 700, color: C.gold, margin: "0 0 18px" }}>
-          Ex-aluno do Thomas Aquinas College · Fundador do Lyceum
+          Criador de Conteúdo · Fundador do Lyceum
         </p>
 
         <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.7, margin: "0 0 14px" }}>
-          Estudei no TAC — a referência mundial em educação clássica católica, onde{" "}
-          <strong>todo o currículo é feito pela leitura direta dos clássicos</strong> pelo método socrático.
+          Lucca de Tomás estudou Artes Liberais e Educação Clássica no{" "}
+          <strong>Thomas Aquinas College (EUA)</strong>, uma das instituições mais rigorosas do mundo no ensino clássico pelo método socrático.
         </p>
 
         <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.7, margin: "0 0 20px" }}>
-          Desde que voltei, repliquei esse modelo no Brasil com o <strong>Lyceum</strong> — e criei a{" "}
-          <strong>Escola da Razão</strong> como a porta de entrada para qualquer pessoa que quer estudar do jeito certo.
+          Discípulo da filosofia e teologia de <strong>Santo Tomás de Aquino</strong>, tem como missão pessoal contribuir para o renascimento cultural brasileiro através da formação intelectual séria.
         </p>
 
         <div className="stat-grid" style={{ marginBottom: 24 }}>
