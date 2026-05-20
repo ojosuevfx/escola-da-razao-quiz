@@ -539,11 +539,11 @@ function ScreenS4({ onNext, onBack, answers, setAnswer }: {
 function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   return (
     <div>
-      <div style={{ height: 240, position: "relative", overflow: "hidden", background: C.navyDark }}>
+      <div style={{ height: 300, position: "relative", overflow: "hidden", background: C.navyDark }}>
         <img
           src="/foto-aura.png"
           alt=""
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+          style={{ width: "120%", height: "120%", objectFit: "cover", objectPosition: "center 30%", display: "block", marginLeft: "-10%" }}
         />
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: 80,
