@@ -31,21 +31,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.quiz-outer {
+/* ── Layout wrapper ───────────────────────────────────────────── */
+.desktop-wrapper {
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #e8edf5;
+}
+
+/* ── Left brand panel — hidden on mobile ──────────────────────── */
+.left-panel {
+  display: none;
+}
+
+/* ── Right quiz area ──────────────────────────────────────────── */
+.right-panel {
+  flex: 1;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 0;
+  min-height: 100dvh;
 }
 
-@media (min-width: 480px) {
-  .quiz-outer {
-    align-items: center;
-    padding: 32px 16px;
-  }
-}
-
+/* ── Quiz card ────────────────────────────────────────────────── */
 .quiz-card {
   width: 100%;
   max-width: 430px;
@@ -55,9 +64,84 @@ body {
 }
 
 @media (min-width: 480px) {
+  .right-panel {
+    align-items: center;
+    padding: 32px 16px;
+  }
   .quiz-card {
     border-radius: 20px;
     box-shadow: 0 8px 48px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* ── Desktop two-column layout ────────────────────────────────── */
+@media (min-width: 1024px) {
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .desktop-wrapper {
+    flex-direction: row;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    min-width: 360px;
+    flex-shrink: 0;
+    background: linear-gradient(175deg, #040d1a 0%, #0e1f3a 55%, #162540 100%);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid rgba(201, 168, 76, 0.12);
+  }
+
+  .left-panel::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.10) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .left-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .right-panel {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 32px;
+    background: #e8edf5;
+    height: 100dvh;
+  }
+
+  .quiz-card {
+    width: 100%;
+    max-width: 430px;
+    border-radius: 20px;
+    box-shadow: 0 12px 56px rgba(0, 0, 0, 0.14);
+    margin: auto;
   }
 }
 
