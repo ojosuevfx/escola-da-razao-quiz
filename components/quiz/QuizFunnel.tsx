@@ -740,10 +740,7 @@ const PAYMENT_URL = "https://pay.hub.la/KJLdsZa55bTmIuB9ABC1";
 // ─── S8 — Página de Vendas ────────────────────────────────────────────────────
 function ScreenS8({ answers }: { answers: Answers }) {
   const perfil = calcularPerfil(answers);
-  const [shaken, setShaken] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setShaken(true), 1200); return () => clearTimeout(t); }, []);
-
-  const MODULOS = [
+const MODULOS = [
     { num: "01", titulo: "O que é Filosofia", desc: "O lugar de Aristóteles e a tradição clássica" },
     { num: "02", titulo: "Fé e Razão", desc: "A grande síntese de Tomás de Aquino" },
     { num: "03", titulo: "O Método", desc: "Lectio, meditatio e memoria na prática" },
@@ -836,21 +833,29 @@ function ScreenS8({ answers }: { answers: Answers }) {
             </span>
           </div>
 
-          {/* preço riscado */}
-          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.28)", marginBottom: 4, textDecoration: "line-through" }}>
-            De R$ 197
-          </div>
+          {/* preço riscado animado */}
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            style={{ fontSize: 13, color: "rgba(255,255,255,0.32)", marginBottom: 6, textDecoration: "line-through", letterSpacing: "0.02em" }}
+          >
+            De R$ 197,00
+          </motion.div>
 
-          {/* preço principal */}
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 6, marginBottom: 4 }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", justifyContent: "center" }}>
-              <span style={{ fontSize: 14, fontWeight: 700, color: C.goldLight, lineHeight: 1, marginBottom: 2 }}>R$</span>
-            </div>
+          {/* preço principal animado */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.35, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+            style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 6, marginBottom: 4 }}
+          >
+            <span style={{ fontSize: 14, fontWeight: 700, color: C.goldLight, lineHeight: 1, marginTop: 14 }}>R$</span>
             <span style={{ fontSize: 76, fontWeight: 900, color: "#fff", lineHeight: 0.9, letterSpacing: "-0.04em" }}>47</span>
-          </div>
+          </motion.div>
 
           {/* separador dourado */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "14px 0 18px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "14px 0 20px" }}>
             <div style={{ flex: 1, height: 1, background: "rgba(201,168,76,0.20)" }} />
             <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", letterSpacing: "0.04em" }}>
               pagamento único · acesso vitalício
@@ -863,45 +868,52 @@ function ScreenS8({ answers }: { answers: Answers }) {
             href={PAYMENT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            animate={shaken ? { y: [0, -3, 3, -3, 3, -1, 1, 0] } : { y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{
+              scale: 1.025,
+              boxShadow: "0 10px 40px rgba(201,168,76,0.70)",
+              transition: { duration: 0.2 },
+            }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
             style={{
               display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
               textDecoration: "none",
-              background: `linear-gradient(135deg, #e8c96a 0%, ${C.gold} 45%, #a8782a 100%)`,
+              background: `linear-gradient(135deg, #f0d472 0%, ${C.gold} 50%, #9a7020 100%)`,
               color: "#0a1628",
-              padding: "18px 24px", borderRadius: 16,
-              fontSize: 16, fontWeight: 900, letterSpacing: "-0.01em",
-              boxShadow: `0 6px 28px rgba(201,168,76,0.55), 0 1px 0 rgba(255,255,255,0.25) inset`,
+              padding: "19px 24px", borderRadius: 16,
+              fontSize: 16, fontWeight: 900, letterSpacing: "0.01em",
+              boxShadow: `0 6px 32px rgba(201,168,76,0.50), 0 1px 0 rgba(255,255,255,0.30) inset`,
               position: "relative", overflow: "hidden",
+              cursor: "pointer",
             }}
           >
+            {/* gloss */}
             <span style={{
-              position: "absolute", top: 0, left: 0, right: 0, height: "48%",
-              background: "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, transparent 100%)",
+              position: "absolute", top: 0, left: 0, right: 0, height: "45%",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.28) 0%, transparent 100%)",
               borderRadius: "16px 16px 0 0", pointerEvents: "none",
             }} />
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            Quero entrar na Escola da Razão
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-            Quero entrar na Escola da Razão
           </motion.a>
 
-          {/* garantia */}
-          <div style={{
-            display: "flex", alignItems: "center", justifyContent: "center",
-            gap: 6, marginTop: 14,
-          }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-              stroke="rgba(255,255,255,0.40)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.40)", letterSpacing: "0.02em" }}>
-              7 dias de garantia incondicional
-            </span>
-          </div>
+          {/* selo compra segura */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            style={{ marginTop: 18, display: "flex", justifyContent: "center" }}
+          >
+            <img
+              src="/compra-segura.png"
+              alt="Compra segura"
+              style={{ height: 36, width: "auto", opacity: 0.75, objectFit: "contain" }}
+            />
+          </motion.div>
         </div>
 
         {/* ── O que você vai aprender ── */}
