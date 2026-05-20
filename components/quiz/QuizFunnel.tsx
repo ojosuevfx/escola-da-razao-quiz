@@ -287,7 +287,7 @@ function ScreenS0({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }
 
         {/* Logo centralizada */}
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
-          <img src="/logo.png" alt="Escola da Razão"
+          <img src="/logo.webp" alt="Escola da Razão"
             style={{ height: 96, width: "auto", objectFit: "contain" }} />
         </div>
 
@@ -554,7 +554,7 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
     <div>
       <div style={{ height: 300, position: "relative", overflow: "hidden", background: C.navyDark }}>
         <img
-          src="/foto-aura.png"
+          src="/foto-aura.webp"
           alt=""
           style={{ width: "100%", height: "115%", objectFit: "cover", objectPosition: "center 25%", display: "block" }}
         />
@@ -835,7 +835,7 @@ const MODULOS = [
           transition={{ duration: 0.5 }}
           style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}
         >
-          <img src="/logo.png" alt="Escola da Razão" style={{ height: 76, width: "auto", objectFit: "contain" }} />
+          <img src="/logo.webp" alt="Escola da Razão" style={{ height: 76, width: "auto", objectFit: "contain" }} />
         </motion.div>
 
         {/* tag de diagnóstico */}
@@ -973,7 +973,7 @@ const MODULOS = [
           style={{ marginTop: 18, display: "flex", justifyContent: "center" }}
         >
           <img
-            src="/compra-segura.png"
+            src="/compra-segura.webp"
             alt="Compra segura"
             style={{ height: 36, width: "auto", opacity: 0.65, objectFit: "contain" }}
           />
