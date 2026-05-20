@@ -527,22 +527,16 @@ function ScreenS4({ onNext, onBack, answers, setAnswer }: {
 function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   return (
     <div>
-      {/* IMAGEM: img-bridge-1.jpg */}
-      <div style={{
-        height: 200,
-        background: `linear-gradient(135deg, ${C.navyDark} 0%, ${C.navyMid} 100%)`,
-        display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center",
-        gap: 12, position: "relative",
-      }}>
-        <div style={{ fontSize: 40 }}>📚</div>
-        <span style={{
-          fontSize: 12, fontWeight: 800, textTransform: "uppercase",
-          letterSpacing: "0.12em", color: "rgba(255,255,255,0.45)",
-        }}>A raiz do problema</span>
-        <div style={{ position: "absolute", bottom: 8, right: 12, fontSize: 10, color: "rgba(255,255,255,0.15)" }}>
-          [Substituir: img-bridge-1.jpg]
-        </div>
+      <div style={{ height: 240, position: "relative", overflow: "hidden", background: C.navyDark }}>
+        <img
+          src="/foto-aura.png"
+          alt=""
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+        />
+        <div style={{
+          position: "absolute", bottom: 0, left: 0, right: 0, height: 80,
+          background: `linear-gradient(transparent, #fff)`,
+        }} />
       </div>
 
       <BackButton onClick={onBack} />
