@@ -599,13 +599,13 @@ function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }
   return (
     <div>
       <div style={{
-        height: 260, background: C.navyDark,
+        height: 340, background: C.navyDark,
         position: "relative", overflow: "hidden",
       }}>
         <img
           src="/foto-professor.webp"
           alt="Lucca de Tomás"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+          style={{ width: "100%", height: "130%", objectFit: "cover", objectPosition: "center 20%", display: "block" }}
         />
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: 80,
@@ -832,7 +832,111 @@ function ScreenS8({ answers }: { answers: Answers }) {
 
       <div style={{ padding: "0 20px" }}>
 
-        {/* Label seção */}
+        {/* ── Bloco preço + CTA ── */}
+        <div style={{
+          background: `linear-gradient(160deg, #06101f 0%, ${C.navyMid} 100%)`,
+          borderRadius: 20, padding: "28px 22px 24px",
+          textAlign: "center", marginBottom: 28,
+          boxShadow: `0 12px 48px rgba(10,22,40,0.36), 0 0 0 1px rgba(201,168,76,0.18)`,
+          position: "relative", overflow: "hidden",
+        }}>
+          {/* glows */}
+          <div style={{
+            position: "absolute", top: -70, left: "50%", transform: "translateX(-50%)",
+            width: 260, height: 200, borderRadius: "50%",
+            background: "radial-gradient(ellipse, rgba(201,168,76,0.14) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
+          <div style={{
+            position: "absolute", bottom: -40, right: -40, width: 160, height: 160,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
+
+          {/* pill label */}
+          <div style={{ marginBottom: 18 }}>
+            <span style={{
+              display: "inline-block",
+              background: "rgba(201,168,76,0.14)",
+              border: "1px solid rgba(201,168,76,0.32)",
+              color: C.gold, fontSize: 10, fontWeight: 800,
+              textTransform: "uppercase", letterSpacing: "0.16em",
+              padding: "5px 16px", borderRadius: 20,
+            }}>
+              ✦ Acesso completo por apenas
+            </span>
+          </div>
+
+          {/* preço riscado */}
+          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.28)", marginBottom: 4, textDecoration: "line-through" }}>
+            De R$ 197
+          </div>
+
+          {/* preço principal */}
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 6, marginBottom: 4 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", justifyContent: "center" }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: C.goldLight, lineHeight: 1, marginBottom: 2 }}>R$</span>
+            </div>
+            <span style={{ fontSize: 76, fontWeight: 900, color: "#fff", lineHeight: 0.9, letterSpacing: "-0.04em" }}>47</span>
+          </div>
+
+          {/* separador dourado */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "14px 0 18px" }}>
+            <div style={{ flex: 1, height: 1, background: "rgba(201,168,76,0.20)" }} />
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", letterSpacing: "0.04em" }}>
+              pagamento único · acesso vitalício
+            </span>
+            <div style={{ flex: 1, height: 1, background: "rgba(201,168,76,0.20)" }} />
+          </div>
+
+          {/* CTA */}
+          <motion.a
+            href={PAYMENT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            animate={shaken ? { y: [0, -3, 3, -3, 3, -1, 1, 0] } : { y: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
+              textDecoration: "none",
+              background: `linear-gradient(135deg, #e8c96a 0%, ${C.gold} 45%, #a8782a 100%)`,
+              color: "#0a1628",
+              padding: "18px 24px", borderRadius: 16,
+              fontSize: 16, fontWeight: 900, letterSpacing: "-0.01em",
+              boxShadow: `0 6px 28px rgba(201,168,76,0.55), 0 1px 0 rgba(255,255,255,0.25) inset`,
+              position: "relative", overflow: "hidden",
+            }}
+          >
+            <span style={{
+              position: "absolute", top: 0, left: 0, right: 0, height: "48%",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, transparent 100%)",
+              borderRadius: "16px 16px 0 0", pointerEvents: "none",
+            }} />
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+            Quero entrar na Escola da Razão
+          </motion.a>
+
+          {/* garantia */}
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "center",
+            gap: 6, marginTop: 14,
+          }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+              stroke="rgba(255,255,255,0.40)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.40)", letterSpacing: "0.02em" }}>
+              7 dias de garantia incondicional
+            </span>
+          </div>
+        </div>
+
+        {/* ── O que você vai aprender ── */}
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
           <div style={{ flex: 1, height: 1, background: C.border }} />
           <span style={{ fontSize: 10, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.14em", color: C.gold }}>
@@ -866,7 +970,7 @@ function ScreenS8({ answers }: { answers: Answers }) {
         {/* Tudo incluso */}
         <div style={{
           background: C.navyLight, border: `1px solid ${C.border}`,
-          borderRadius: 12, padding: "16px 18px", marginBottom: 28,
+          borderRadius: 12, padding: "16px 18px", marginBottom: 12,
         }}>
           <div style={{
             fontSize: 10, fontWeight: 800, textTransform: "uppercase",
@@ -886,80 +990,7 @@ function ScreenS8({ answers }: { answers: Answers }) {
           </ul>
         </div>
 
-        {/* Bloco preço + CTA */}
-        <div style={{
-          background: `linear-gradient(145deg, ${C.navyDark} 0%, ${C.navy} 100%)`,
-          borderRadius: 18, padding: "26px 22px",
-          textAlign: "center", marginBottom: 20,
-          boxShadow: `0 8px 32px rgba(10,22,40,0.28)`,
-          position: "relative", overflow: "hidden",
-        }}>
-          <div style={{
-            position: "absolute", top: -50, right: -50, width: 180, height: 180,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }} />
-
-          <div style={{
-            fontSize: 10, fontWeight: 800, textTransform: "uppercase",
-            letterSpacing: "0.14em", color: C.gold, marginBottom: 14,
-          }}>
-            ✦ Acesso completo por apenas
-          </div>
-
-          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", marginBottom: 4, textDecoration: "line-through" }}>
-            De R$ 197
-          </div>
-
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 4, marginBottom: 6 }}>
-            <span style={{ fontSize: 18, fontWeight: 700, color: C.goldLight, marginTop: 8 }}>R$</span>
-            <span style={{ fontSize: 62, fontWeight: 900, color: "#fff", lineHeight: 1, letterSpacing: "-0.03em" }}>47</span>
-          </div>
-
-          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.40)", marginBottom: 24 }}>
-            pagamento único · acesso vitalício
-          </div>
-
-          <motion.a
-            href={PAYMENT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            animate={shaken ? { x: [0, -4, 4, -4, 4, -2, 2, 0] } : { x: 0 }}
-            transition={{ duration: 0.45 }}
-            style={{
-              display: "block", textDecoration: "none",
-              background: `linear-gradient(135deg, ${C.gold} 0%, #a8842e 100%)`,
-              color: C.navyDark,
-              padding: "17px 24px", borderRadius: 14,
-              fontSize: 15, fontWeight: 900, letterSpacing: "-0.01em",
-              boxShadow: `0 4px 22px rgba(201,168,76,0.50), 0 1px 0 rgba(255,255,255,0.18) inset`,
-              position: "relative", overflow: "hidden",
-            }}
-          >
-            <span style={{
-              position: "absolute", top: 0, left: 0, right: 0, height: "50%",
-              background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 100%)",
-              borderRadius: "14px 14px 0 0", pointerEvents: "none",
-            }} />
-            Quero entrar na Escola da Razão →
-          </motion.a>
-
-          <div style={{
-            display: "flex", alignItems: "center", justifyContent: "center",
-            gap: 6, marginTop: 16,
-          }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-              stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
-              7 dias de garantia incondicional
-            </span>
-          </div>
-        </div>
-
-        <p style={{ textAlign: "center", fontSize: 12, color: C.textMuted, lineHeight: 1.6, margin: "0 0 8px" }}>
+        <p style={{ textAlign: "center", fontSize: 12, color: C.textMuted, lineHeight: 1.6, margin: "12px 0 8px" }}>
           Ao clicar você será redirecionado para o checkout seguro da Hubla.
         </p>
       </div>
