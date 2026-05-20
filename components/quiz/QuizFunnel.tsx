@@ -1093,7 +1093,11 @@ export default function QuizFunnel() {
 
   const goTo = useCallback((next: Screen, dir = 1) => {
     setDirection(dir); setScreen(next);
-    if (typeof window !== "undefined") window.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+      // virtual page view para o Clarity reconhecer cada tela da SPA
+      clarityEvent("screen", next);
+    }
   }, []);
 
   const goNext = useCallback(() => {
