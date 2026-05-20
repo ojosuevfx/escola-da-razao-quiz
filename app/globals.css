@@ -20,6 +20,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+
 html, body {
   margin: 0;
   padding: 0;
@@ -27,6 +28,7 @@ html, body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* ── Outer wrapper ────────────────────────────────────────────────── */
@@ -46,6 +48,36 @@ html, body {
   background: #ffffff;
   position: relative;
   overflow: hidden;
+}
+
+/* Mobile: card preenche a tela inteira */
+@media (max-width: 479px) {
+  .quiz-card {
+    min-height: 100dvh;
+  }
+
+  /* Foto do mentor menor em telas baixas */
+  .s6-photo {
+    height: 260px !important;
+  }
+
+  /* Loading screen não precisa de tanto espaço */
+  .s7-inner {
+    min-height: 0 !important;
+    padding-top: 32px !important;
+    padding-bottom: 24px !important;
+  }
+}
+
+/* Telas muito pequenas (iPhone SE, Galaxy A, 320px) */
+@media (max-width: 359px) {
+  .quiz-price-num {
+    font-size: 56px !important;
+  }
+
+  .s6-photo {
+    height: 220px !important;
+  }
 }
 
 @media (min-width: 480px) {
@@ -203,8 +235,59 @@ html, body {
   margin-top: 1px;
 }
 
+/* ── Neon button shimmer sweep ────────────────────────────────────── */
+@keyframes cta-shine {
+  0%   { transform: translateX(-160%) skewX(-18deg); }
+  100% { transform: translateX(320%)  skewX(-18deg); }
+}
+
+.cta-btn-shine::after,
+.neon-btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 45%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.36), transparent);
+  animation: cta-shine 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.neon-btn-shine:hover {
+  transform: scale(1.02);
+}
+
+.neon-btn-shine:active {
+  transform: scale(0.97);
+}
+
+/* ── CTA glow wrapper pulse ───────────────────────────────────────── */
+@keyframes btn-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0px rgba(201,168,76,0.00), 0 4px 24px rgba(201,168,76,0.35); }
+  50%       { box-shadow: 0 0 0 7px rgba(201,168,76,0.13), 0 4px 40px rgba(201,168,76,0.65); }
+}
+
+@keyframes btn-bounce {
+  0%, 100%  { transform: translateY(0); }
+  20%       { transform: translateY(-4px); }
+  40%       { transform: translateY(0); }
+  60%       { transform: translateY(-2px); }
+  80%       { transform: translateY(0); }
+}
+
+.cta-glow-wrap {
+  border-radius: 18px;
+  animation:
+    btn-glow-pulse 2.2s ease-in-out infinite,
+    btn-bounce 4s ease-in-out 2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-glow-wrap { animation: none; }
+}
+
 /* ── Reduced motion ───────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .cta-pulse { animation: none; }
-  .spinner   { animation: spin 2s linear infinite; }
+  .cta-pulse      { animation: none; }
+  .cta-btn-shine::after { animation: none; }
+  .spinner        { animation: spin 2s linear infinite; }
 }

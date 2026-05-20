@@ -2,6 +2,20 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Button as NeonButton } from "@/components/ui/neon-button";
+
+// ─── Clarity helper ───────────────────────────────────────────────────────────
+function clarityEvent(name: string, value?: string) {
+  if (typeof window === "undefined") return;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const c = (window as any).clarity;
+  if (typeof c !== "function") return;
+  if (value !== undefined) {
+    c("set", name, value.slice(0, 255));
+  } else {
+    c("event", name);
+  }
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Answers = Record<number, string | string[]>;
@@ -258,8 +272,9 @@ function ScreenS0({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }
       <div
         style={{
           background: `linear-gradient(170deg, #06101f 0%, #0f1f3d 55%, ${C.navy} 100%)`,
-          padding: "44px 24px 52px",
+          padding: "44px 24px 56px",
           position: "relative", overflow: "hidden",
+          borderRadius: "0 0 28px 28px",
         }}
       >
         {/* Brilho dourado difuso superior */}
@@ -313,20 +328,12 @@ function ScreenS0({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }
           color: "rgba(255,255,255,0.52)", fontSize: 14,
           lineHeight: 1.7, margin: 0, textAlign: "center",
         }}>
-          Responda 4 perguntas e receba um diagnóstico personalizado — com o próximo passo certo para o seu perfil.
+          Responda 4 perguntas e receba um resultado personalizado com o próximo passo para seus estudos.
         </p>
       </div>
 
-      {/* Onda de transição */}
-      <div style={{
-        height: 32,
-        background: `linear-gradient(170deg, #06101f 0%, ${C.navy} 100%)`,
-        borderRadius: "0 0 50% 50% / 0 0 32px 32px",
-        marginBottom: 32,
-      }} />
-
       {/* Conteúdo */}
-      <div className="screen-inner" style={{ padding: "0 24px" }}>
+      <div className="screen-inner" style={{ padding: "32px 24px 0" }}>
 
         {/* Steps */}
         <div style={{ display: "flex", flexDirection: "column", marginBottom: 32 }}>
@@ -352,36 +359,41 @@ function ScreenS0({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }
         </div>
 
         {/* CTA principal */}
-        <PrimaryButton onClick={onNext} pulse>
-          Iniciar agora!
-        </PrimaryButton>
-
-        <p style={{
-          textAlign: "center", fontSize: 12, color: C.textMuted,
-          marginTop: 14, marginBottom: 16, letterSpacing: "0.01em",
-        }}>
-          ⏱ Menos de 2 minutos · sem cadastro
-        </p>
+        <div className="cta-glow-wrap">
+          <NeonButton
+            variant="solid"
+            onClick={() => { clarityEvent("quiz_started"); onNext(); }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 17, fontWeight: 900, letterSpacing: "0.005em" }}>
+                Iniciar agora
+              </span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </NeonButton>
+        </div>
 
         {/* CTA secundário */}
         <button
-          onClick={onSkip}
+          onClick={() => { clarityEvent("quiz_skipped"); onSkip(); }}
           style={{
-            width: "100%", padding: "14px",
-            background: "transparent",
-            color: C.navy,
+            width: "100%", padding: "13px",
+            background: "transparent", color: C.textSub,
             border: `1.5px solid ${C.border}`,
-            borderRadius: 14, fontSize: 15, fontWeight: 700,
+            borderRadius: 14, fontSize: 14, fontWeight: 600,
             cursor: "pointer", fontFamily: "inherit",
-            transition: "border-color 200ms, background 200ms",
+            marginTop: 10,
+            transition: "border-color 200ms, color 200ms",
           }}
           onMouseEnter={(e) => {
             (e.currentTarget as HTMLButtonElement).style.borderColor = C.navy;
-            (e.currentTarget as HTMLButtonElement).style.background = C.navyLight;
+            (e.currentTarget as HTMLButtonElement).style.color = C.navy;
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.borderColor = C.border;
-            (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+            (e.currentTarget as HTMLButtonElement).style.color = C.textSub;
           }}
         >
           Já sei o que quero →
@@ -417,7 +429,7 @@ function ScreenS1({ onNext, onBack, answers, setAnswer }: {
         <div className="options-grid">
           {opts.map((opt) => (
             <SingleOption key={opt} text={opt} selected={answers[1] === opt}
-              onClick={() => { setAnswer(1, opt); setTimeout(onNext, 300); }} />
+              onClick={() => { clarityEvent("q1_answered", opt); setAnswer(1, opt); setTimeout(onNext, 300); }} />
           ))}
         </div>
       </div>
@@ -449,7 +461,7 @@ function ScreenS2({ onNext, onBack, answers, setAnswer }: {
         <div className="options-grid">
           {opts.map((opt) => (
             <SingleOption key={opt} text={opt} selected={answers[2] === opt}
-              onClick={() => { setAnswer(2, opt); setTimeout(onNext, 300); }} />
+              onClick={() => { clarityEvent("q2_answered", opt); setAnswer(2, opt); setTimeout(onNext, 300); }} />
           ))}
         </div>
       </div>
@@ -491,7 +503,7 @@ function ScreenS3({ onNext, onBack, answers, setAnswer }: {
           ))}
         </div>
         <div style={{ marginTop: 12 }}>
-          <PrimaryButton onClick={onNext} disabled={selected.length === 0}>Continuar →</PrimaryButton>
+          <PrimaryButton onClick={() => { clarityEvent("q3_answered", selected.join(" | ")); onNext(); }} disabled={selected.length === 0}>Continuar →</PrimaryButton>
         </div>
       </div>
       <Footer />
@@ -512,6 +524,7 @@ function ScreenS4({ onNext, onBack, answers, setAnswer }: {
   ];
   const [pct, setPct] = useState(80);
   const handleSelect = (opt: string) => {
+    clarityEvent("q4_answered", opt);
     setAnswer(4, opt); setPct(100); setTimeout(onNext, 500);
   };
   return (
@@ -607,6 +620,7 @@ function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }
       <div className="s6-photo" style={{
         height: 400, background: C.navyDark,
         position: "relative", overflow: "hidden",
+        transition: "height 0.2s",
       }}>
         <img
           src="/foto-professor.webp"
@@ -698,7 +712,7 @@ function ScreenS7({ onNext }: { onNext: () => void }) {
   }, [onNext]);
 
   return (
-    <div style={{ padding: "48px 24px 32px", minHeight: 520, display: "flex", flexDirection: "column", alignItems: "center", gap: 28 }}>
+    <div className="s7-inner" style={{ padding: "48px 24px 32px", minHeight: 520, display: "flex", flexDirection: "column", alignItems: "center", gap: 28 }}>
       <div className="spinner" />
 
       <div style={{ textAlign: "center" }}>
@@ -754,6 +768,27 @@ const PAYMENT_URL = "https://pay.hub.la/KJLdsZa55bTmIuB9ABC1";
 // ─── S8 — Página de Vendas ────────────────────────────────────────────────────
 function ScreenS8({ answers }: { answers: Answers }) {
   const perfil = calcularPerfil(answers);
+  const [displayPrice, setDisplayPrice] = useState(0);
+
+  useEffect(() => {
+    clarityEvent("quiz_completed");
+    clarityEvent("profile_seen", perfil.badge);
+  }, [perfil.badge]);
+
+  useEffect(() => {
+    const target = 4790; // centavos
+    const duration = 1400;
+    const start = performance.now();
+    let frame: number;
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayPrice(Math.round(eased * target)); // em centavos
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, []);
 const MODULOS = [
     { num: "01", titulo: "O melhor método para começar", desc: "Qual o melhor método pra quem está começando a estudar filosofia clássica" },
     { num: "02", titulo: "Pilares da leitura filosófica", desc: "Os pilares de uma leitura filosófica correta e coerente" },
@@ -774,8 +809,9 @@ const MODULOS = [
       {/* Hero navy com diagnóstico */}
       <div style={{
         background: "linear-gradient(175deg, #040d1a 0%, #0e1f3a 55%, #1a2f50 100%)",
-        padding: "36px 28px 52px",
+        padding: "36px 28px 48px",
         position: "relative", textAlign: "center", overflow: "hidden",
+        borderRadius: "0 0 28px 28px",
       }}>
         {/* glow central */}
         <div style={{
@@ -828,8 +864,8 @@ const MODULOS = [
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.5 }}
           style={{
-            color: "#ffffff", fontSize: 26, fontWeight: 900,
-            lineHeight: 1.18, margin: "0 0 6px", letterSpacing: "-0.03em",
+            color: "#ffffff", fontSize: 32, fontWeight: 900,
+            lineHeight: 1.15, margin: "0 0 6px", letterSpacing: "-0.03em",
             whiteSpace: "pre-line",
           }}
         >
@@ -852,140 +888,100 @@ const MODULOS = [
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          style={{ color: "rgba(255,255,255,0.52)", fontSize: 14, lineHeight: 1.75, margin: 0, maxWidth: 340, marginInline: "auto" }}
+          style={{ color: "rgba(255,255,255,0.55)", fontSize: 16, lineHeight: 1.75, margin: 0, maxWidth: 360, marginInline: "auto" }}
         >
           {perfil.desc}
         </motion.p>
-      </div>
 
-      {/* Onda de transição */}
-      <div style={{
-        height: 32,
-        background: "linear-gradient(175deg, #040d1a 0%, #0e1f3a 55%, #1a2f50 100%)",
-        borderRadius: "0 0 50% 50% / 0 0 32px 32px",
-        marginBottom: 28,
-      }} />
+        {/* ── Separador ── */}
+        <div style={{ height: 1, background: "rgba(201,168,76,0.18)", margin: "32px 0 28px" }} />
 
-      <div style={{ padding: "0 20px" }}>
+        {/* pill label */}
+        <div style={{ marginBottom: 16 }}>
+          <span style={{
+            display: "inline-block",
+            background: "rgba(201,168,76,0.12)",
+            border: "1px solid rgba(201,168,76,0.28)",
+            color: C.gold, fontSize: 10, fontWeight: 800,
+            textTransform: "uppercase", letterSpacing: "0.16em",
+            padding: "5px 16px", borderRadius: 20,
+          }}>
+            ✦ Acesso completo por apenas
+          </span>
+        </div>
 
-        {/* ── Bloco preço + CTA ── */}
-        <div style={{
-          background: `linear-gradient(160deg, #06101f 0%, ${C.navyMid} 100%)`,
-          borderRadius: 20, padding: "28px 22px 24px",
-          textAlign: "center", marginBottom: 28,
-          boxShadow: `0 12px 48px rgba(10,22,40,0.36), 0 0 0 1px rgba(201,168,76,0.18)`,
-          position: "relative", overflow: "hidden",
-        }}>
-          {/* glows */}
-          <div style={{
-            position: "absolute", top: -70, left: "50%", transform: "translateX(-50%)",
-            width: 260, height: 200, borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(201,168,76,0.14) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }} />
-          <div style={{
-            position: "absolute", bottom: -40, right: -40, width: 160, height: 160,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }} />
+        {/* preço riscado */}
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          style={{ fontSize: 13, color: "rgba(255,255,255,0.30)", marginBottom: 6, textDecoration: "line-through", letterSpacing: "0.02em" }}
+        >
+          De R$ 197,90
+        </motion.div>
 
-          {/* pill label */}
-          <div style={{ marginBottom: 18 }}>
-            <span style={{
-              display: "inline-block",
-              background: "rgba(201,168,76,0.14)",
-              border: "1px solid rgba(201,168,76,0.32)",
-              color: C.gold, fontSize: 10, fontWeight: 800,
-              textTransform: "uppercase", letterSpacing: "0.16em",
-              padding: "5px 16px", borderRadius: 20,
-            }}>
-              ✦ Acesso completo por apenas
+        {/* preço principal */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.35, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+          style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 6, marginBottom: 4 }}
+        >
+          <span style={{ fontSize: 14, fontWeight: 700, color: C.goldLight, lineHeight: 1, marginTop: 14 }}>R$</span>
+          <span className="quiz-price-num" style={{ fontSize: 76, fontWeight: 900, color: "#fff", lineHeight: 0.9, letterSpacing: "-0.04em" }}>
+            {Math.floor(displayPrice / 100)}
+            <span style={{ fontSize: 32, fontWeight: 800, letterSpacing: "-0.02em" }}>
+              ,{String(displayPrice % 100).padStart(2, "0")}
             </span>
-          </div>
+          </span>
+        </motion.div>
 
-          {/* preço riscado animado */}
-          <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            style={{ fontSize: 13, color: "rgba(255,255,255,0.32)", marginBottom: 6, textDecoration: "line-through", letterSpacing: "0.02em" }}
-          >
-            De R$ 197,00
-          </motion.div>
+        {/* pagamento único */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "14px 0 24px" }}>
+          <div style={{ flex: 1, height: 1, background: "rgba(201,168,76,0.18)" }} />
+          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.32)", letterSpacing: "0.04em" }}>
+            pagamento único · acesso vitalício
+          </span>
+          <div style={{ flex: 1, height: 1, background: "rgba(201,168,76,0.18)" }} />
+        </div>
 
-          {/* preço principal animado */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.35, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-            style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 6, marginBottom: 4 }}
-          >
-            <span style={{ fontSize: 14, fontWeight: 700, color: C.goldLight, lineHeight: 1, marginTop: 14 }}>R$</span>
-            <span style={{ fontSize: 76, fontWeight: 900, color: "#fff", lineHeight: 0.9, letterSpacing: "-0.04em" }}>47</span>
-          </motion.div>
-
-          {/* separador dourado */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "14px 0 20px" }}>
-            <div style={{ flex: 1, height: 1, background: "rgba(201,168,76,0.20)" }} />
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", letterSpacing: "0.04em" }}>
-              pagamento único · acesso vitalício
-            </span>
-            <div style={{ flex: 1, height: 1, background: "rgba(201,168,76,0.20)" }} />
-          </div>
-
-          {/* CTA */}
-          <motion.a
+        {/* CTA */}
+        <div className="cta-glow-wrap">
+          <NeonButton
+            variant="solid"
             href={PAYMENT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{
-              scale: 1.025,
-              boxShadow: "0 10px 40px rgba(201,168,76,0.70)",
-              transition: { duration: 0.2 },
-            }}
-            whileTap={{ scale: 0.96 }}
-            transition={{ delay: 0.5, duration: 0.4 }}
-            style={{
-              display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
-              textDecoration: "none",
-              background: `linear-gradient(135deg, #f0d472 0%, ${C.gold} 50%, #9a7020 100%)`,
-              color: "#0a1628",
-              padding: "19px 24px", borderRadius: 16,
-              fontSize: 16, fontWeight: 900, letterSpacing: "0.01em",
-              boxShadow: `0 6px 32px rgba(201,168,76,0.50), 0 1px 0 rgba(255,255,255,0.30) inset`,
-              position: "relative", overflow: "hidden",
-              cursor: "pointer",
-            }}
+            onClick={() => clarityEvent("cta_clicked")}
           >
-            {/* gloss */}
-            <span style={{
-              position: "absolute", top: 0, left: 0, right: 0, height: "45%",
-              background: "linear-gradient(180deg, rgba(255,255,255,0.28) 0%, transparent 100%)",
-              borderRadius: "16px 16px 0 0", pointerEvents: "none",
-            }} />
-            Quero entrar na Escola da Razão
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </motion.a>
-
-          {/* selo compra segura */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            style={{ marginTop: 18, display: "flex", justifyContent: "center" }}
-          >
-            <img
-              src="/compra-segura.png"
-              alt="Compra segura"
-              style={{ height: 36, width: "auto", opacity: 0.75, objectFit: "contain" }}
-            />
-          </motion.div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 17, fontWeight: 900, letterSpacing: "0.005em" }}>
+                Garantir meu acesso
+              </span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </NeonButton>
         </div>
+
+        {/* compra segura */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+          style={{ marginTop: 18, display: "flex", justifyContent: "center" }}
+        >
+          <img
+            src="/compra-segura.png"
+            alt="Compra segura"
+            style={{ height: 36, width: "auto", opacity: 0.65, objectFit: "contain" }}
+          />
+        </motion.div>
+      </div>
+
+      {/* ── Seção branca ── */}
+      <div style={{ padding: "28px 20px" }}>
 
         {/* ── O que você vai aprender ── */}
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
