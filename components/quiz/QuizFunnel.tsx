@@ -326,7 +326,7 @@ function ScreenS0({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }
       }} />
 
       {/* Conteúdo */}
-      <div style={{ padding: "0 24px" }}>
+      <div className="screen-inner" style={{ padding: "0 24px" }}>
 
         {/* Steps */}
         <div style={{ display: "flex", flexDirection: "column", marginBottom: 32 }}>
@@ -409,15 +409,17 @@ function ScreenS1({ onNext, onBack, answers, setAnswer }: {
     <div>
       <ProgressBar pct={20} />
       <BackButton onClick={onBack} />
-      <div style={{ padding: "12px 20px 24px" }}>
+      <div className="screen-inner" style={{ padding: "12px 20px 24px" }}>
         <QuestionTag label="Pergunta 1 de 4" />
         <h2 style={{ fontSize: 20, fontWeight: 800, color: C.text, lineHeight: 1.3, margin: "0 0 20px" }}>
           Há quanto tempo você quer estudar filosofia clássica de verdade?
         </h2>
-        {opts.map((opt) => (
-          <SingleOption key={opt} text={opt} selected={answers[1] === opt}
-            onClick={() => { setAnswer(1, opt); setTimeout(onNext, 300); }} />
-        ))}
+        <div className="options-grid">
+          {opts.map((opt) => (
+            <SingleOption key={opt} text={opt} selected={answers[1] === opt}
+              onClick={() => { setAnswer(1, opt); setTimeout(onNext, 300); }} />
+          ))}
+        </div>
       </div>
       <Footer />
     </div>
@@ -439,15 +441,17 @@ function ScreenS2({ onNext, onBack, answers, setAnswer }: {
     <div>
       <ProgressBar pct={40} />
       <BackButton onClick={onBack} />
-      <div style={{ padding: "12px 20px 24px" }}>
+      <div className="screen-inner" style={{ padding: "12px 20px 24px" }}>
         <QuestionTag label="Pergunta 2 de 4" />
         <h2 style={{ fontSize: 20, fontWeight: 800, color: C.text, lineHeight: 1.3, margin: "0 0 20px" }}>
           Você já tentou estudar algum clássico da filosofia antes?
         </h2>
-        {opts.map((opt) => (
-          <SingleOption key={opt} text={opt} selected={answers[2] === opt}
-            onClick={() => { setAnswer(2, opt); setTimeout(onNext, 300); }} />
-        ))}
+        <div className="options-grid">
+          {opts.map((opt) => (
+            <SingleOption key={opt} text={opt} selected={answers[2] === opt}
+              onClick={() => { setAnswer(2, opt); setTimeout(onNext, 300); }} />
+          ))}
+        </div>
       </div>
       <Footer />
     </div>
@@ -473,7 +477,7 @@ function ScreenS3({ onNext, onBack, answers, setAnswer }: {
     <div>
       <ProgressBar pct={60} />
       <BackButton onClick={onBack} />
-      <div style={{ padding: "12px 20px 24px" }}>
+      <div className="screen-inner" style={{ padding: "12px 20px 24px" }}>
         <QuestionTag label="Pergunta 3 de 4" />
         <h2 style={{ fontSize: 20, fontWeight: 800, color: C.text, lineHeight: 1.3, margin: "0 0 6px" }}>
           Quais são seus maiores desafios hoje?
@@ -481,10 +485,12 @@ function ScreenS3({ onNext, onBack, answers, setAnswer }: {
         <p style={{ fontSize: 13, color: C.textMuted, fontStyle: "italic", margin: "0 0 18px" }}>
           * Selecione as opções e clique em continuar
         </p>
-        {opts.map((opt) => (
-          <MultiOption key={opt} text={opt} selected={selected.includes(opt)} onClick={() => toggle(opt)} />
-        ))}
-        <div style={{ marginTop: 4 }}>
+        <div className="options-grid" style={{ marginBottom: 4 }}>
+          {opts.map((opt) => (
+            <MultiOption key={opt} text={opt} selected={selected.includes(opt)} onClick={() => toggle(opt)} />
+          ))}
+        </div>
+        <div style={{ marginTop: 12 }}>
           <PrimaryButton onClick={onNext} disabled={selected.length === 0}>Continuar →</PrimaryButton>
         </div>
       </div>
@@ -512,15 +518,17 @@ function ScreenS4({ onNext, onBack, answers, setAnswer }: {
     <div>
       <ProgressBar pct={pct} />
       <BackButton onClick={onBack} />
-      <div style={{ padding: "12px 20px 24px" }}>
+      <div className="screen-inner" style={{ padding: "12px 20px 24px" }}>
         <QuestionTag label="Pergunta 4 de 4" />
         <h2 style={{ fontSize: 20, fontWeight: 800, color: C.text, lineHeight: 1.3, margin: "0 0 20px" }}>
           O que você mais quer conquistar estudando filosofia?
         </h2>
-        {opts.map((opt) => (
-          <SingleOption key={opt} text={opt} selected={answers[4] === opt}
-            onClick={() => handleSelect(opt)} />
-        ))}
+        <div className="options-grid">
+          {opts.map((opt) => (
+            <SingleOption key={opt} text={opt} selected={answers[4] === opt}
+              onClick={() => handleSelect(opt)} />
+          ))}
+        </div>
       </div>
       <Footer />
     </div>
@@ -545,7 +553,7 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
 
       <BackButton onClick={onBack} />
 
-      <div style={{ padding: "8px 20px 24px" }}>
+      <div className="screen-inner" style={{ padding: "8px 20px 24px" }}>
         <div style={{
           fontSize: 11, fontWeight: 800, textTransform: "uppercase",
           letterSpacing: "0.1em", color: C.gold, marginBottom: 12,
@@ -595,8 +603,8 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
 // ─── S6 — Mentor ─────────────────────────────────────────────────────────────
 function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   return (
-    <div>
-      <div style={{
+    <div className="s6-wrapper">
+      <div className="s6-photo" style={{
         height: 400, background: C.navyDark,
         position: "relative", overflow: "hidden",
       }}>
@@ -622,6 +630,7 @@ function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }
         </div>
       </div>
 
+      <div className="s6-bio">
       <BackButton onClick={onBack} />
 
       <div style={{ padding: "8px 20px 24px" }}>
@@ -641,9 +650,10 @@ function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }
           Discípulo da filosofia e teologia de <strong>Santo Tomás de Aquino</strong>, tem como missão pessoal contribuir para o renascimento cultural brasileiro através da formação intelectual séria.
         </p>
 
-        <PrimaryButton onClick={onNext}>Ver meu diagnóstico →</PrimaryButton>
+        <PrimaryButton onClick={onNext}>Acessar minha solução →</PrimaryButton>
       </div>
       <Footer />
+      </div>
     </div>
   );
 }
@@ -1031,7 +1041,44 @@ const MODULOS = [
           </ul>
         </div>
 
-        <p style={{ textAlign: "center", fontSize: 12, color: C.textMuted, lineHeight: 1.6, margin: "12px 0 8px" }}>
+        {/* Credencial TAC */}
+        <div style={{
+          background: `linear-gradient(135deg, #06101f 0%, #0e1f3a 100%)`,
+          border: `1px solid rgba(201,168,76,0.22)`,
+          borderRadius: 14, padding: "18px 20px", marginTop: 16,
+          position: "relative", overflow: "hidden",
+        }}>
+          <div style={{
+            position: "absolute", top: -30, right: -30, width: 120, height: 120,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(201,168,76,0.10) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
+          <div style={{
+            fontSize: 10, fontWeight: 800, textTransform: "uppercase",
+            letterSpacing: "0.14em", color: C.gold, marginBottom: 14,
+          }}>
+            ✦ Por que confiar neste curso
+          </div>
+          {[
+            "O currículo do Thomas Aquinas College",
+            "O professor é ex-aluno do TAC",
+            "A tradição chega ao Brasil pela porta certa",
+          ].map((item) => (
+            <div key={item} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+              <div style={{
+                width: 18, height: 18, borderRadius: "50%",
+                border: `1.5px solid rgba(201,168,76,0.50)`,
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: C.gold }} />
+              </div>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.75)", lineHeight: 1.4 }}>{item}</span>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ textAlign: "center", fontSize: 12, color: C.textMuted, lineHeight: 1.6, margin: "16px 0 8px" }}>
           Ao clicar você será redirecionado para o checkout seguro da Hubla.
         </p>
       </div>
