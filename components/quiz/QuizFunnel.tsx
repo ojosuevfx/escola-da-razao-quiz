@@ -30,26 +30,30 @@ const perfis = [
   {
     badge: "Iniciante com potencial",
     score: 89,
-    nome: "Você tem vontade — falta a porta de entrada",
-    desc: "O problema não é inteligência nem disciplina. É que ninguém te ensinou a forma certa de entrar na tradição filosófica clássica. A Escola da Razão foi criada exatamente para isso — te dar o método que os grandes estudiosos sempre usaram.",
+    tag: "Seu diagnóstico",
+    nome: "A vontade existe.\nFalta a porta certa.",
+    desc: "O obstáculo não é inteligência — é método. Ninguém te ensinou a forma que os grandes mestres usaram por séculos para entrar na tradição filosófica clássica. A Escola da Razão existe para isso.",
   },
   {
     badge: "Leitor frustrado",
     score: 93,
-    nome: "Você lê, mas o método está faltando",
-    desc: "Ler sem lectio, meditatio e memoria é como encher um cesto furado. Você consome, mas não forma. A Escola da Razão te ensina esse método de 900 anos em 12 aulas práticas — e tudo muda a partir daí.",
+    tag: "Seu diagnóstico",
+    nome: "Você lê muito.\nRetém pouco.",
+    desc: "Sem lectio, meditatio e memoria, cada livro é um cesto furado — você consome, mas não forma. A Escola da Razão te dá esse método de 900 anos em 12 aulas diretas ao ponto.",
   },
   {
     badge: "Católico sem base racional",
     score: 91,
-    nome: "Fé você tem — agora falta a razão articulada",
-    desc: "Tomás de Aquino passou a vida mostrando que fé e razão se complementam. Para defender o que você crê com argumentos filosóficos precisos, você precisa de base real. A Escola da Razão é esse fundamento.",
+    tag: "Seu diagnóstico",
+    nome: "Fé você tem.\nFalta a razão articulada.",
+    desc: "Tomás de Aquino dedicou a vida a mostrar que fé e razão se completam. Para defender o que você crê com precisão filosófica, você precisa de fundamento real — e é exatamente isso que a Escola da Razão oferece.",
   },
   {
     badge: "Autodidata sério",
     score: 96,
-    nome: "Você sabe o que quer — precisa do método certo",
-    desc: "A diferença entre quem estuda Tomás em profundidade e quem fica na superfície é simples: método de leitura formativa. A Escola da Razão organiza o terreno para que cada hora de estudo seu valha o dobro a partir de agora.",
+    tag: "Seu diagnóstico",
+    nome: "Você sabe o que quer.\nPrecisa do método certo.",
+    desc: "A diferença entre quem penetra Tomás de verdade e quem fica na superfície é simples: leitura formativa. A Escola da Razão organiza o caminho para que cada hora de estudo valha muito mais.",
   },
 ];
 
@@ -760,38 +764,96 @@ const MODULOS = [
 
       {/* Hero navy com diagnóstico */}
       <div style={{
-        background: `linear-gradient(160deg, #06101f 0%, ${C.navy} 100%)`,
-        padding: "32px 24px 44px",
+        background: "linear-gradient(175deg, #040d1a 0%, #0e1f3a 55%, #1a2f50 100%)",
+        padding: "36px 28px 52px",
         position: "relative", textAlign: "center", overflow: "hidden",
       }}>
+        {/* glow central */}
         <div style={{
-          position: "absolute", top: -60, left: "50%", transform: "translateX(-50%)",
-          width: 320, height: 220, borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(201,168,76,0.10) 0%, transparent 70%)",
+          position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)",
+          width: 340, height: 260, borderRadius: "50%",
+          background: "radial-gradient(ellipse, rgba(201,168,76,0.13) 0%, transparent 68%)",
+          pointerEvents: "none",
+        }} />
+        {/* glow inferior */}
+        <div style={{
+          position: "absolute", bottom: -20, left: "50%", transform: "translateX(-50%)",
+          width: 280, height: 120, borderRadius: "50%",
+          background: "radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%)",
           pointerEvents: "none",
         }} />
 
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
-          <img src="/logo.png" alt="Escola da Razão" style={{ height: 72, width: "auto", objectFit: "contain" }} />
-        </div>
+        {/* logo */}
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}
+        >
+          <img src="/logo.png" alt="Escola da Razão" style={{ height: 76, width: "auto", objectFit: "contain" }} />
+        </motion.div>
 
-        <h1 style={{
-          color: "#fff", fontSize: 22, fontWeight: 900,
-          lineHeight: 1.22, margin: "0 0 14px", letterSpacing: "-0.02em",
-        }}>
+        {/* tag de diagnóstico */}
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.4 }}
+          style={{ marginBottom: 16 }}
+        >
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            background: "rgba(201,168,76,0.10)",
+            border: "1px solid rgba(201,168,76,0.25)",
+            color: C.gold, fontSize: 10, fontWeight: 700,
+            textTransform: "uppercase", letterSpacing: "0.16em",
+            padding: "5px 14px", borderRadius: 20,
+          }}>
+            <span style={{ width: 5, height: 5, borderRadius: "50%", background: C.gold, display: "inline-block" }} />
+            {perfil.tag}
+          </span>
+        </motion.div>
+
+        {/* título — quebra de linha preservada */}
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          style={{
+            color: "#ffffff", fontSize: 26, fontWeight: 900,
+            lineHeight: 1.18, margin: "0 0 6px", letterSpacing: "-0.03em",
+            whiteSpace: "pre-line",
+          }}
+        >
           {perfil.nome}
-        </h1>
+        </motion.h1>
 
-        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, lineHeight: 1.7, margin: 0 }}>
+        {/* linha dourada ornamental */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
+          style={{
+            width: 48, height: 2, background: `linear-gradient(90deg, transparent, ${C.gold}, transparent)`,
+            margin: "14px auto 16px", borderRadius: 2,
+          }}
+        />
+
+        {/* descrição */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          style={{ color: "rgba(255,255,255,0.52)", fontSize: 14, lineHeight: 1.75, margin: 0, maxWidth: 340, marginInline: "auto" }}
+        >
           {perfil.desc}
-        </p>
+        </motion.p>
       </div>
 
       {/* Onda de transição */}
       <div style={{
-        height: 28,
-        background: `linear-gradient(160deg, #06101f 0%, ${C.navy} 100%)`,
-        borderRadius: "0 0 50% 50% / 0 0 28px 28px",
+        height: 32,
+        background: "linear-gradient(175deg, #040d1a 0%, #0e1f3a 55%, #1a2f50 100%)",
+        borderRadius: "0 0 50% 50% / 0 0 32px 32px",
         marginBottom: 28,
       }} />
 
