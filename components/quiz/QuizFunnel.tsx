@@ -531,7 +531,7 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
         <img
           src="/foto-aura.png"
           alt=""
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
         />
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: 80,
