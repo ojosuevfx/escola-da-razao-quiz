@@ -757,106 +757,123 @@ function ScreenS7({ onNext }: { onNext: () => void }) {
   );
 }
 
-// ─── Score count-up ───────────────────────────────────────────────────────────
-function useCountUp(target: number, duration = 800) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    const start = performance.now();
-    let frame: number;
-    const tick = (now: number) => {
-      const t = Math.min((now - start) / duration, 1);
-      setValue(Math.round((1 - Math.pow(1 - t, 3)) * target));
-      if (t < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [target, duration]);
-  return value;
-}
+const PAYMENT_URL = "https://pay.hub.la/KJLdsZa55bTmIuB9ABC1";
 
-// ─── S8 — Resultado + Oferta ─────────────────────────────────────────────────
+// ─── S8 — Página de Vendas ────────────────────────────────────────────────────
 function ScreenS8({ answers }: { answers: Answers }) {
   const perfil = calcularPerfil(answers);
-  const displayScore = useCountUp(perfil.score);
   const [shaken, setShaken] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setShaken(true), 1000); return () => clearTimeout(t); }, []);
+  useEffect(() => { const t = setTimeout(() => setShaken(true), 1200); return () => clearTimeout(t); }, []);
+
+  const MODULOS = [
+    { num: "01", titulo: "O que é Filosofia", desc: "O lugar de Aristóteles e a tradição clássica" },
+    { num: "02", titulo: "Fé e Razão", desc: "A grande síntese de Tomás de Aquino" },
+    { num: "03", titulo: "O Método", desc: "Lectio, meditatio e memoria na prática" },
+    { num: "04", titulo: "Humildade Intelectual", desc: "A aula que transforma como você aprende" },
+  ];
 
   const BULLETS = [
-    "Fundamentos: o que é filosofia e o lugar de Aristóteles",
-    "A grande síntese de Tomás — fé e razão",
-    "Método completo: lectio, meditatio, memoria",
-    "Humildade intelectual — a aula que muda tudo",
-    "Bônus: O Mapa do Saber clássico",
-    "Acesso vitalício · Plataforma Hubla",
+    "12 aulas em vídeo — ritmo próprio, acesso vitalício",
+    "Método monástico de leitura adaptado ao século XXI",
+    "Plataforma Hubla com suporte e comunidade",
+    "Bônus: Mapa do Saber Clássico (PDF exclusivo)",
+    "Certificado de conclusão",
   ];
 
   return (
-    <div>
-      {/* Hero com onda */}
-      <div
-        className="wave-divider"
-        style={{
-          background: `linear-gradient(160deg, #06101f 0%, ${C.navy} 100%)`,
-          padding: "28px 20px 60px",
-          position: "relative", textAlign: "center",
-        }}
-      >
-        {/* Ornamento dourado */}
+    <div style={{ background: "#fff" }}>
+
+      {/* Hero navy com diagnóstico */}
+      <div style={{
+        background: `linear-gradient(160deg, #06101f 0%, ${C.navy} 100%)`,
+        padding: "32px 24px 44px",
+        position: "relative", textAlign: "center", overflow: "hidden",
+      }}>
         <div style={{
-          position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)",
-          width: 300, height: 200, borderRadius: "50%",
-          background: `radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%)`,
+          position: "absolute", top: -60, left: "50%", transform: "translateX(-50%)",
+          width: 320, height: 220, borderRadius: "50%",
+          background: "radial-gradient(ellipse, rgba(201,168,76,0.10) 0%, transparent 70%)",
           pointerEvents: "none",
         }} />
 
-        {/* Badge */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+          <img src="/logo.png" alt="Escola da Razão" style={{ height: 72, width: "auto", objectFit: "contain" }} />
+        </div>
+
         <div style={{ marginBottom: 16 }}>
           <span style={{
             display: "inline-block",
-            background: `rgba(201,168,76,0.18)`,
-            color: C.goldLight,
-            fontSize: 11, fontWeight: 800, textTransform: "uppercase",
-            letterSpacing: "0.1em", padding: "5px 12px", borderRadius: 20,
-            border: `1px solid rgba(201,168,76,0.3)`,
+            background: "rgba(201,168,76,0.16)", color: C.goldLight,
+            fontSize: 10, fontWeight: 800, textTransform: "uppercase",
+            letterSpacing: "0.14em", padding: "5px 14px", borderRadius: 20,
+            border: "1px solid rgba(201,168,76,0.28)",
           }}>
-            {perfil.badge}
+            Seu perfil: {perfil.badge}
           </span>
         </div>
 
-        {/* Pontuação */}
-        <div style={{ fontSize: 54, fontWeight: 900, color: C.gold, lineHeight: 1, marginBottom: 6 }}>
-          {displayScore}
-        </div>
-        <div style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", marginBottom: 12 }}>pontos de potencial</div>
-        <div style={{ fontSize: 16, fontWeight: 700, color: "#fff" }}>{perfil.nome}</div>
-      </div>
+        <h1 style={{
+          color: "#fff", fontSize: 22, fontWeight: 900,
+          lineHeight: 1.22, margin: "0 0 14px", letterSpacing: "-0.02em",
+        }}>
+          {perfil.nome}
+        </h1>
 
-      {/* Conteúdo */}
-      <div style={{ padding: "24px 20px 0" }}>
-        <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.7, margin: "0 0 20px" }}>
+        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, lineHeight: 1.7, margin: 0 }}>
           {perfil.desc}
         </p>
+      </div>
 
-        <div style={{ borderBottom: `1px solid ${C.border}`, marginBottom: 20 }} />
+      {/* Onda de transição */}
+      <div style={{
+        height: 28,
+        background: `linear-gradient(160deg, #06101f 0%, ${C.navy} 100%)`,
+        borderRadius: "0 0 50% 50% / 0 0 28px 28px",
+        marginBottom: 28,
+      }} />
 
-        <div style={{
-          fontSize: 11, fontWeight: 800, textTransform: "uppercase",
-          letterSpacing: "0.1em", color: C.gold, marginBottom: 14,
-        }}>
-          ✦ Indicado para o seu perfil
+      <div style={{ padding: "0 20px" }}>
+
+        {/* Label seção */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+          <div style={{ flex: 1, height: 1, background: C.border }} />
+          <span style={{ fontSize: 10, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.14em", color: C.gold }}>
+            O que você vai aprender
+          </span>
+          <div style={{ flex: 1, height: 1, background: C.border }} />
         </div>
 
-        {/* Card do produto */}
+        {/* Módulos */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+          {MODULOS.map(({ num, titulo, desc }) => (
+            <div key={num} style={{
+              display: "flex", gap: 14, alignItems: "flex-start",
+              padding: "14px 16px", background: C.cream,
+              border: `1px solid ${C.borderWarm}`, borderRadius: 12,
+            }}>
+              <div style={{
+                width: 36, height: 36, borderRadius: 10, background: C.navy,
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}>
+                <span style={{ fontSize: 11, fontWeight: 900, color: C.gold }}>{num}</span>
+              </div>
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: C.text, lineHeight: 1.3 }}>{titulo}</div>
+                <div style={{ fontSize: 13, color: C.textMuted, marginTop: 2 }}>{desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tudo incluso */}
         <div style={{
-          background: C.cream, border: `1.5px solid ${C.borderWarm}`,
-          borderRadius: 14, padding: 18, marginBottom: 20,
+          background: C.navyLight, border: `1px solid ${C.border}`,
+          borderRadius: 12, padding: "16px 18px", marginBottom: 28,
         }}>
-          <h3 style={{ fontSize: 18, fontWeight: 900, color: C.text, margin: "0 0 6px" }}>
-            Escola da Razão
-          </h3>
-          <p style={{ fontSize: 13, color: C.textMuted, lineHeight: 1.5, margin: "0 0 18px" }}>
-            12 aulas com os fundamentos da filosofia clássica e o método monástico de leitura — por Lucca de Tomás
-          </p>
+          <div style={{
+            fontSize: 10, fontWeight: 800, textTransform: "uppercase",
+            letterSpacing: "0.12em", color: C.navy, marginBottom: 12,
+          }}>Tudo que está incluso</div>
           <ul className="check-list">
             {BULLETS.map((b) => (
               <li key={b} className="check-item">
@@ -865,39 +882,91 @@ function ScreenS8({ answers }: { answers: Answers }) {
                     <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <span>{b}</span>
+                <span style={{ fontSize: 13 }}>{b}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Preço */}
-        <div style={{ textAlign: "center", marginBottom: 16 }}>
-          <div style={{ fontSize: 34, fontWeight: 900, color: C.text, lineHeight: 1 }}>R$ 47</div>
-          <div style={{ fontSize: 13, color: C.textMuted, marginTop: 4 }}>à vista · acesso imediato</div>
-        </div>
+        {/* Bloco preço + CTA */}
+        <div style={{
+          background: `linear-gradient(145deg, ${C.navyDark} 0%, ${C.navy} 100%)`,
+          borderRadius: 18, padding: "26px 22px",
+          textAlign: "center", marginBottom: 20,
+          boxShadow: `0 8px 32px rgba(10,22,40,0.28)`,
+          position: "relative", overflow: "hidden",
+        }}>
+          <div style={{
+            position: "absolute", top: -50, right: -50, width: 180, height: 180,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
 
-        {/* CTA com shake */}
-        <motion.div
-          animate={shaken ? { x: [0, -3, 3, -3, 3, -2, 2, 0] } : { x: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <a
-            href="https://pay.hub.la/KJLdsZa55bTmIuB9ABC1"
+          <div style={{
+            fontSize: 10, fontWeight: 800, textTransform: "uppercase",
+            letterSpacing: "0.14em", color: C.gold, marginBottom: 14,
+          }}>
+            ✦ Acesso completo por apenas
+          </div>
+
+          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", marginBottom: 4, textDecoration: "line-through" }}>
+            De R$ 197
+          </div>
+
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 4, marginBottom: 6 }}>
+            <span style={{ fontSize: 18, fontWeight: 700, color: C.goldLight, marginTop: 8 }}>R$</span>
+            <span style={{ fontSize: 62, fontWeight: 900, color: "#fff", lineHeight: 1, letterSpacing: "-0.03em" }}>47</span>
+          </div>
+
+          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.40)", marginBottom: 24 }}>
+            pagamento único · acesso vitalício
+          </div>
+
+          <motion.a
+            href={PAYMENT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ display: "block", textDecoration: "none" }}
+            animate={shaken ? { x: [0, -4, 4, -4, 4, -2, 2, 0] } : { x: 0 }}
+            transition={{ duration: 0.45 }}
+            style={{
+              display: "block", textDecoration: "none",
+              background: `linear-gradient(135deg, ${C.gold} 0%, #a8842e 100%)`,
+              color: C.navyDark,
+              padding: "17px 24px", borderRadius: 14,
+              fontSize: 15, fontWeight: 900, letterSpacing: "-0.01em",
+              boxShadow: `0 4px 22px rgba(201,168,76,0.50), 0 1px 0 rgba(255,255,255,0.18) inset`,
+              position: "relative", overflow: "hidden",
+            }}
           >
-            <PrimaryButton>Quero entrar na Escola da Razão →</PrimaryButton>
-          </a>
-        </motion.div>
+            <span style={{
+              position: "absolute", top: 0, left: 0, right: 0, height: "50%",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 100%)",
+              borderRadius: "14px 14px 0 0", pointerEvents: "none",
+            }} />
+            Quero entrar na Escola da Razão →
+          </motion.a>
 
-        <p style={{ textAlign: "center", fontSize: 12, color: C.textMuted, marginTop: 12, marginBottom: 0 }}>
-          🔒 7 dias de garantia incondicional
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "center",
+            gap: 6, marginTop: 16,
+          }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+              stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
+              7 dias de garantia incondicional
+            </span>
+          </div>
+        </div>
+
+        <p style={{ textAlign: "center", fontSize: 12, color: C.textMuted, lineHeight: 1.6, margin: "0 0 8px" }}>
+          Ao clicar você será redirecionado para o checkout seguro da Hubla.
         </p>
       </div>
 
-      <div style={{ height: 20 }} />
+      <div style={{ height: 24 }} />
       <Footer />
     </div>
   );
