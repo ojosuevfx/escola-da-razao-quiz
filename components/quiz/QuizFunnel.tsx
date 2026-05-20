@@ -745,10 +745,9 @@ const PAYMENT_URL = "https://pay.hub.la/KJLdsZa55bTmIuB9ABC1";
 function ScreenS8({ answers }: { answers: Answers }) {
   const perfil = calcularPerfil(answers);
 const MODULOS = [
-    { num: "01", titulo: "O que é Filosofia", desc: "O lugar de Aristóteles e a tradição clássica" },
-    { num: "02", titulo: "Fé e Razão", desc: "A grande síntese de Tomás de Aquino" },
-    { num: "03", titulo: "O Método", desc: "Lectio, meditatio e memoria na prática" },
-    { num: "04", titulo: "Humildade Intelectual", desc: "A aula que transforma como você aprende" },
+    { num: "01", titulo: "O melhor método para começar", desc: "Qual o melhor método pra quem está começando a estudar filosofia clássica" },
+    { num: "02", titulo: "Pilares da leitura filosófica", desc: "Os pilares de uma leitura filosófica correta e coerente" },
+    { num: "03", titulo: "O método na prática", desc: "Exemplos com aulas dadas aos alunos mostrando o método na prática" },
   ];
 
   const BULLETS = [
