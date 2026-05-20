@@ -565,9 +565,9 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
         </p>
 
         <div className="blockquote-styled" style={{ marginBottom: 18 }}>
-          &ldquo;O estudo da filosofia não é para sabermos o que os homens pensaram, mas qual é a verdade das coisas.&rdquo;
+          &ldquo;O primeiro sinal de um bom estudante é a paciência — o estudo é como a agricultura.&rdquo;
           <div style={{ marginTop: 8, fontSize: 12, fontStyle: "normal", fontWeight: 700, color: C.navy }}>
-            — Lição 22 do Livro I de Caelo de Aristóteles
+            — Hugo de São Vitor
           </div>
         </div>
 
