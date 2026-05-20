@@ -565,9 +565,9 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
         </p>
 
         <div className="blockquote-styled" style={{ marginBottom: 18 }}>
-          &ldquo;El hombre inteligente busca la sabedoria; o ignorante pensa já tê-la encontrado.&rdquo;
+          &ldquo;O estudo da filosofia não é para sabermos o que os homens pensaram, mas qual é a verdade das coisas.&rdquo;
           <div style={{ marginTop: 8, fontSize: 12, fontStyle: "normal", fontWeight: 700, color: C.navy }}>
-            — São Tomás de Aquino
+            — Lição 22 do Livro I do De Caelo de Aristóteles
           </div>
         </div>
 
