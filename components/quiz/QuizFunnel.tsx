@@ -599,13 +599,13 @@ function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }
   return (
     <div>
       <div style={{
-        height: 340, background: C.navyDark,
+        height: 400, background: C.navyDark,
         position: "relative", overflow: "hidden",
       }}>
         <img
           src="/foto-professor.webp"
           alt="Lucca de Tomás"
-          style={{ width: "100%", height: "130%", objectFit: "cover", objectPosition: "center 20%", display: "block" }}
+          style={{ width: "100%", height: "140%", objectFit: "cover", objectPosition: "center 18%", display: "block" }}
         />
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: 80,
@@ -642,19 +642,6 @@ function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }
         <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.7, margin: "0 0 20px" }}>
           Discípulo da filosofia e teologia de <strong>Santo Tomás de Aquino</strong>, tem como missão pessoal contribuir para o renascimento cultural brasileiro através da formação intelectual séria.
         </p>
-
-        <div className="stat-grid" style={{ marginBottom: 24 }}>
-          {[
-            { val: "300+", label: "alunos formados no Lyceum" },
-            { val: "6",    label: "turmas anuais conduzidas" },
-            { val: "TAC",  label: "único brasileiro com a credencial" },
-          ].map(({ val, label }) => (
-            <div key={val} className="stat-item">
-              <div style={{ fontSize: 22, fontWeight: 900, color: C.navy }}>{val}</div>
-              <div style={{ fontSize: 11, color: C.textMuted, marginTop: 4, lineHeight: 1.3 }}>{label}</div>
-            </div>
-          ))}
-        </div>
 
         <PrimaryButton onClick={onNext}>Ver meu diagnóstico →</PrimaryButton>
       </div>
