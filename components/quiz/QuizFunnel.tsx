@@ -598,17 +598,15 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
 function ScreenS6({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   return (
     <div>
-      {/* IMAGEM: img-mentor-lucca.jpg */}
       <div style={{
         height: 260, background: C.navyDark,
-        position: "relative", display: "flex",
-        flexDirection: "column", alignItems: "center",
-        justifyContent: "center", gap: 8, overflow: "hidden",
+        position: "relative", overflow: "hidden",
       }}>
-        <div style={{ fontSize: 52 }}>👨‍🏫</div>
-        <p style={{ color: "rgba(255,255,255,0.25)", fontSize: 11, margin: 0 }}>
-          [Substituir: img-mentor-lucca.jpg]
-        </p>
+        <img
+          src="/foto-professor.webp"
+          alt="Lucca de Tomás"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+        />
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: 80,
           background: `linear-gradient(transparent, ${C.navyDark})`,
