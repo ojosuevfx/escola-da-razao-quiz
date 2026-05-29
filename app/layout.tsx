@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title: "Escola da Razão — Descubra seu perfil filosófico",
   description:
     "Responda 4 perguntas e receba um diagnóstico personalizado com o próximo passo certo para estudar filosofia clássica de verdade.",
+  icons: {
+    icon: "/logo.webp",
+  },
 };
 
 export default function RootLayout({
