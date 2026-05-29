@@ -586,9 +586,9 @@ function ScreenS5({ onNext, onBack }: { onNext: () => void; onBack: () => void }
         </p>
 
         <div className="blockquote-styled" style={{ marginBottom: 18 }}>
-          &ldquo;O primeiro sinal de um bom estudante é a paciência, o estudo é como a agricultura.&rdquo;
+          &ldquo;De todas as coisas, a mais desejável é a sabedoria.&rdquo;
           <div style={{ marginTop: 8, fontSize: 12, fontStyle: "normal", fontWeight: 700, color: C.navy }}>
-            — Hugo de São Vitor
+            — Hugo de São Vítor, Didascalicon
           </div>
         </div>
 
